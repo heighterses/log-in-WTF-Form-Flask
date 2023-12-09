@@ -41,16 +41,21 @@ input {
     border-radius: 4px;
 }
 
+Copy code
 button {
     padding: 10px 20px;
-    background-color: #4caf50;
+    background-color: #ff69b4; /* A pink color, you can change it to your preference */
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 25px; /* Increase the border-radius for a rounded button */
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+
+    /* Add box shadow for a subtle lift */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #ff1493; /* Darker pink color on hover */
 }
