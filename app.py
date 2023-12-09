@@ -27,12 +27,8 @@ def login_page():
         return render_template('login-success.html')
     else:
         render_template('no-data.html')
-    return render_template('login-wtf.html', form=loginForm)
+    return render_template('login.html', form=loginForm)
 
-
-@app.route('/login')
-def login_wtf():
-    return render_template('login.html')
 
 
 if __name__ == '__main__':
