@@ -1,11 +1,15 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import StringField
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Email, Length
+
 
 # <--------------Class-WTF-Forms--------------->
 class MyForm(FlaskForm):
-    email = StringField('Email')
-    password = StringField('Password')
+    email = StringField(label='Email', validators=[DataRequired(), Email(message='Invalid email format. Please include "@" symbol.')])
+    password = PasswordField(label='Password', validators=[DataRequired(), Length(min=8, message='Password must be at least 8 characters long.')])
+    submit = SubmitField(label='Log In')
+
 
 # <--------------App--------------->
 app = Flask(__name__)
@@ -13,14 +17,20 @@ app = Flask(__name__)
 # Disable CSRF protection
 app.config['WTF_CSRF_ENABLED'] = False
 
-@app.route('/')
+
+@app.route('/', methods=["GET", "POST"])
 def login_page():
-    return render_template('login.html')
+    loginForm = MyForm()
+    if loginForm.validate_on_submit():
+        print(loginForm.email.data)
+        print(loginForm.password.data)
+    return render_template('login-wtf.html', form=loginForm)
+
 
 @app.route('/login')
 def login_wtf():
-    loginForm = MyForm()
-    return render_template('login-wtf.html', form=loginForm)
+    return render_template('login.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
