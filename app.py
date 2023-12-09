@@ -24,6 +24,9 @@ def login_page():
     if loginForm.validate_on_submit():
         print(loginForm.email.data)
         print(loginForm.password.data)
+        return render_template('login-success.html')
+    else:
+        render_template('no-data.html')
     return render_template('login-wtf.html', form=loginForm)
 
 
